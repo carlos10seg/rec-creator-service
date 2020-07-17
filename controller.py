@@ -8,6 +8,12 @@ from model_manager import ModelManager
 class Controller:
     models = {}
 
+    def build_movies(self):
+        dataManager = DataManager()
+        dbManager = DbManager()
+        movies = dataManager.get_movies()
+        dbManager.build_movies(movies)
+
     def create_db_structure_with_data(self):
         dataManager = DataManager()
         dbManager = DbManager()
@@ -17,11 +23,8 @@ class Controller:
 
     def save_models(self, algos):
         lkProxy = LenskitProxy()
-        #dataManager = DataManager()
-        #ratings = dataManager.get_ratings()
         dbManager = DbManager()
         ratings = dbManager.get_ratings()
-        #print(len(ratings))
         modelManager = ModelManager()
         for algo in algos.split(','):
             model = lkProxy.create_model(algo, ratings)

@@ -1,0 +1,16 @@
+version: '3'
+services:
+  creator:
+    image: rec-creator-service
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    ports:
+      - "5010:5010"
+    depends_on:
+       - mysql
+    volumes:
+      - .:/app
+  mysql:
+    image: "mysql"
+    environment:
+       MYSQL_ROOT_PASSWORD: root

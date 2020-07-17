@@ -1,0 +1,12 @@
+{
+    "default_algorithm": "popular",
+    "db_connection":
+    {
+        "db_engine": "mysql",
+        "connector": "mysqlconnector",
+        "user": "root",
+        "password": "root",
+        "server": "mysql",
+        "database": "db"
+    }
+}

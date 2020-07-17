@@ -3,6 +3,16 @@ from controller import Controller
 
 app = Flask(__name__)
 
+@app.route('/hello', methods=['GET'])
+def hello():
+    return "Hello world"
+
+@app.route('/build_movies', methods=['GET'])
+def build_movies():
+    ctrl = Controller()
+    ctrl.build_movies()
+    return jsonify({"result": 'ok'})
+
 @app.route('/create_structure', methods=['GET'])
 def create_structure():
     ctrl = Controller()
@@ -18,4 +28,4 @@ def save_models(algos):
     return jsonify({"result": 'ok'})
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0', port=5010)
