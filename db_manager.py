@@ -8,8 +8,9 @@ from datetime import datetime
 class DbManager:
     def __init__(self):
         reader = ConfigReader()
-        db_connection = reader.get_value("db_connection")        
-        self.conn_string = '{db_engine}+{connector}://{user}:{password}@{server}'.format(
+        db_connection = reader.get_value("db_connection")
+        # "+mysqlconnector",
+        self.conn_string = '{db_engine}{connector}://{user}:{password}@{server}'.format(
             db_engine=db_connection['db_engine'],
             connector=db_connection['connector'],
             user=db_connection['user'],
@@ -49,7 +50,7 @@ class DbManager:
     def build_movies(self, movies):
         try:
             engine = create_engine(self.conn_string)
-            engine.execute("CREATE DATABASE IF NOT EXISTS " + self.db_name)
+            #engine.execute("CREATE DATABASE IF NOT EXISTS " + self.db_name)
             engine = create_engine(self.conn_string + "/" + self.db_name)
             movies.to_sql('movies', con=engine, if_exists='replace', index=False)
         except: # catch *all* exceptions
