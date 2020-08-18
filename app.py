@@ -27,5 +27,11 @@ def save_models(algos):
     ctrl.save_models(algos)
     return jsonify({"result": 'ok'})
 
+@app.route('/load_models/<algos>', methods=['GET'])
+def load_models(algos):
+    ctrl = Controller()
+    ctrl.load_models(algos)
+    return jsonify({"result": 'ok'})
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5010)

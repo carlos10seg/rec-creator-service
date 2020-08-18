@@ -29,3 +29,8 @@ class Controller:
         for algo in algos.split(','):
             model = lkProxy.create_model(algo, ratings)
             modelManager.store(model, algo)
+
+    def load_models(self, algos):
+        modelManager = ModelManager()
+        for algo in algos.split(','):
+            modelManager.load_for_shared_mem(algo)

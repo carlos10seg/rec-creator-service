@@ -1,11 +1,11 @@
-binpickle==0.3.1
+binpickle==0.3.2
 cffi==1.14.0
 click==7.1.2
 Flask==1.1.2
 itsdangerous==1.1.0
 Jinja2==2.11.2
 joblib==0.15.1
-lenskit==0.8.4
+lenskit==0.10.1
 llvmlite==0.32.1
 MarkupSafe==1.1.1
 msgpack==1.0.0

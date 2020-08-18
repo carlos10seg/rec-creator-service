@@ -28,28 +28,28 @@ class DbManager:
             ratings.to_sql('ratings', con=engine, if_exists='replace', index=False, chunksize=10000)
 
             # Create index
-            sql.execute('''CREATE INDEX idx1 ON ratings (userId, movieId)''', engine)
-            sql.execute('''CREATE INDEX idx1 ON movies (movieId);''', engine)
+            sql.execute('''CREATE INDEX idx1 ON ratings (userId, itemId)''', engine)
+            sql.execute('''CREATE INDEX idx1 ON movies (itemId);''', engine)
         except: # catch *all* exceptions
             e = sys.exc_info()[0]
             print(e)
  
     def get_ratings(self):
-        return sql.read_sql("SELECT userId as user, movieId as item, rating, timestamp FROM ratings;", create_engine(self.conn_string))
+        return sql.read_sql("SELECT userId as user, itemId as item, rating, timestamp FROM ratings;", create_engine(self.conn_string + "/" + self.db_name))
 
     def get_movies(self):
-        return sql.read_sql("SELECT movieId, title, genres FROM movies;", create_engine(self.conn_string))
+        return sql.read_sql("SELECT itemId, title, genres FROM movies;", create_engine(self.conn_string + "/" + self.db_name))
 
     def get_links(self):
-        return sql.read_sql("SELECT movieId, imdbId, tmdbId FROM links;", create_engine(self.conn_string))
+        return sql.read_sql("SELECT itemId, imdbId, tmdbId FROM links;", create_engine(self.conn_string + "/" + self.db_name))
 
     def get_ratings_for_user(self, user_id):
-        return sql.read_sql("SELECT movieId as item, rating FROM ratings WHERE userId = {userId}".format(
-                    userId=user_id), create_engine(self.conn_string))
+        return sql.read_sql("SELECT itemId as item, rating FROM ratings WHERE userId = {userId}".format(
+                    userId=user_id), create_engine(self.conn_string + "/" + self.db_name))
 
     def build_movies(self, movies):
         try:
-            engine = create_engine(self.conn_string)
+            #engine = create_engine(self.conn_string)
             #engine.execute("CREATE DATABASE IF NOT EXISTS " + self.db_name)
             engine = create_engine(self.conn_string + "/" + self.db_name)
             movies.to_sql('movies', con=engine, if_exists='replace', index=False)
