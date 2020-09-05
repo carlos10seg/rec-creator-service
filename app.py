@@ -20,11 +20,11 @@ def create_structure():
     return jsonify({"result": 'ok'})
 
 # Save all the algo models to disk
-# http://127.0.0.1:5000/save_models/popular,bias,topn,itemitem,useruser,biasedmf,implicitmf,funksvd
+# http://127.0.0.1:5010/save_models/popular,bias,topn,itemitem,useruser,biasedmf,implicitmf,funksvd
 @app.route('/save_models/<algos>', methods=['GET'])
 def save_models(algos):
     ctrl = Controller()
-    ctrl.save_models(algos)
+    ctrl.save_models(algos, True)
     return jsonify({"result": 'ok'})
 
 @app.route('/load_models/<algos>', methods=['GET'])
